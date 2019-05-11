@@ -1,0 +1,14 @@
+﻿syntax="proto3";
+
+message KafkaMessage{
+	 string id=1;
+	 enum MessageType{
+		TEST=0;
+		ERROR=1;
+		EVENT=2;
+	 }
+	 MessageType message_type=2;
+	 string source=3;
+	 int32 retry_count=4;
+	 string payload=5;
+}
