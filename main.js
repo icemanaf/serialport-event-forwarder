@@ -30,8 +30,9 @@ protobuf.load(proto_path,function(err,root){
 
             let msg={id:uuidv1(),
             message_type:'EVENT',
-            source:'RF_PIR_DETECTOR',
-            payload:data};
+            source:'RF_SENSOR',
+            payload:data,
+            datetime_created_utc:Date.now()};
 
             var err=kmType.verify(msg);
 
