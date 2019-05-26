@@ -32,7 +32,7 @@ protobuf.load(proto_path,function(err,root){
             message_type:'EVENT',
             source:'RF_SENSOR',
             payload:data,
-            datetime_created_utc:Date.now()};
+            datetime_created_utc:Date.now().toString()};
 
             var err=kmType.verify(msg);
 
