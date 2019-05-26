@@ -40,12 +40,15 @@ protobuf.load(proto_path,function(err,root){
                 console.log('proto error verifying message');
             }
 
+            console.log(msg);
+
+
             var buffer=kmType.encode(kmType.create(msg)).finish();
 
             let payload=[{topic:config.kafka.topic,messages:buffer}];
 
             producer.send(payload,function(data,err){
-                console.log(data);
+                
              });
 
         },function(err){
