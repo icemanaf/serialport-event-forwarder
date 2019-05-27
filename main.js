@@ -29,7 +29,7 @@ protobuf.load(proto_path,function(err,root){
         serialport.init(config.serial.port,config.serial.baudrate,function(data){
 
             let msg={id:uuidv1(),
-            message_type:'EVENT',
+            message_type:2,
             source:'RF_SENSOR',
             payload:data,
             datetime_created_utc:Date.now().toString()};
