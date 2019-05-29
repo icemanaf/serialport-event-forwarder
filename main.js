@@ -17,6 +17,7 @@ protobuf.load(proto_path,function(err,root){
     }
 
     const kmType=root.lookupType("KafkaMessage");
+    const msgType=kmType.lookup("MessageType");
 
     const kafkaClient=new kafka.KafkaClient({kafkaHost: config.kafka.broker});
 
@@ -29,10 +30,11 @@ protobuf.load(proto_path,function(err,root){
         serialport.init(config.serial.port,config.serial.baudrate,function(data){
 
             let msg={id:uuidv1(),
-            message_type:2,
+            message_type:msgType.values.EVENT,
             source:'RF_SENSOR',
+            retry_count=0,
             payload:data,
-            datetime_created_utc:Date.now().toString()};
+            datetime_created_utc:new Date().toUTCString()};
 
             var err=kmType.verify(msg);
 
