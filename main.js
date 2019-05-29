@@ -32,7 +32,7 @@ protobuf.load(proto_path,function(err,root){
             let msg={id:uuidv1(),
             message_type:msgType.values.EVENT,
             source:'RF_SENSOR',
-            retry_count=0,
+            retry_count:0,
             payload:data,
             datetime_created_utc:new Date().toUTCString()};
 
