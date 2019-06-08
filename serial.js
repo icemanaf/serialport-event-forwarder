@@ -23,6 +23,8 @@ serial.init=function(port,baud,onDataCallback,onErrorCallback){
                         onDataCallback(display_str);
                         display_str="";
                     }
+                    if (display_str.includes("ZZZZ"))
+                        display_str="";
             }
         }
     })
