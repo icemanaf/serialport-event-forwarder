@@ -4,6 +4,7 @@ const path=require("path");
 const config=require("./config");
 const serialport=require("./serial");
 const uuidv1=require("uuid/v1");
+const fs=require('fs');
 
 
 
@@ -26,15 +27,60 @@ protobuf.load(proto_path,function(err,root){
     producer.on('ready',function(){
         console.log('connected to kafka broker');
 
+        if (config.dump_test_file){
+
+               /*
+               message KafkaMessage{
+                    string Id=1;
+                    enum MessageType{
+                        TEST=0;
+                        ERROR=1;
+                        EVENT=2;
+                        COMMAND=3;
+                    }
+                    MessageType MsgType=2;
+                    string Source=3;
+                    int32 RetryCount=4;
+                    string Payload=5;
+                    string DatetimeCreatedUtc=6;
+                }
+               */  
+
+
+            let msg={Id:uuidv1(),
+                MsgType:msgType.values.EVENT,
+                Source:'RF_SENSOR',
+                RetryCount:5,
+                Payload:"test data string",
+                DatetimeCreatedUtc:"10th june 2019"};
+
+                var err=kmType.verify(msg);
+
+                if (err){
+                    console.log('proto error verifying test dump message');
+                }
+                
+                let km=kmType.fromObject(msg);
+
+
+                let buffer=kmType.encode(km).finish();
+
+                let km2=kmType.decode(buffer);
+
+                fs.writeFileSync("test_dump_file",buffer);
+
+                console.log("dumped test message.");
+                return;
+        }
 
         serialport.init(config.serial.port,config.serial.baudrate,function(data){
 
-            let msg={id:uuidv1(),
-            message_type:msgType.values.EVENT,
-            source:'RF_SENSOR',
-            retry_count:0,
-            payload:data,
-            datetime_created_utc:new Date().toUTCString()};
+            let msg={Id:uuidv1(),
+            MsgType:msgType.values.EVENT,
+            Source:'RF_PIR_SENSOR',
+            RetryCount:0,
+            Payload:data,
+            DatetimeCreatedUtc:new Date().toUTCString()};
 
             var err=kmType.verify(msg);
 

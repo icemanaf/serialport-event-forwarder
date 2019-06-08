@@ -15,5 +15,7 @@ if (process.env.BAUD){
 
 config.serial.port=process.env.SERIAL_PORT || "COM3";
 
+config.dump_test_file=false;
+
 
 module.exports=config;
