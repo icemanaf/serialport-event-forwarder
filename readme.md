@@ -12,4 +12,4 @@ These are essentially acknowledgment messages which are passed on at regular int
 
 once the receiver module has been setup and is verified that is sending data correctly, do the following.
 
-`docker run -it -e BAUD=600 -e SERIAL_PORT=/dev/ttyAMA0 --device=/dev/ttyAMA0 --restart=always icemanaf/rpi-serialport-event-forwarder
+`docker run -it -e BAUD=600 -e SERIAL_PORT=/dev/ttyAMA0 --device=/dev/ttyAMA0 --restart=always icemanaf/serialport-event-forwarder
