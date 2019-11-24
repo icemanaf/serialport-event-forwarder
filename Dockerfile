@@ -1,4 +1,4 @@
-FROM arm32v6/alpine:3.7
+FROM arm32v6/alpine
 
 RUN apk add --no-cache npm && \
 apk add --no-cache make gcc g++ python linux-headers udev && \
